@@ -1,0 +1,40 @@
+# python 3.9
+import pandas as pd
+import random
+
+# 읽어올 엑셀 파일 지정
+filename = 'dhdh1.xlsx'
+
+# 엑셀 파일 읽어 오기
+df = pd.read_excel(filename, engine='openpyxl')
+
+# 데이터프레임에서 2행을 무작위로 선택
+random_rows = df.sample(n=3)
+
+# 선택된 행에서 탄수화물, 단백질, 지방의 양을 합산하여 새로운 열로 추가
+random_rows['kcal_합'] = random_rows['(kcal)'].sum()
+random_rows['탄수_합'] = random_rows['탄'].sum()
+random_rows['단백_합'] = random_rows['단'].sum()
+random_rows['지방_합'] = random_rows['지'].sum()
+
+# 선택된 행과 각 항목별 합계를 출력
+print("선택된 행:")
+print(random_rows)
+print()
+
+# 합산된 값만 출력
+print("음식1:", random_rows['대표식품명'].values[0])
+print("음식2:", random_rows['대표식품명'].values[1])
+print("음식3:", random_rows['대표식품명'].values[2])
+print("합산된 값:")
+print("kcal 합:", random_rows['kcal_합'].values[0])
+print("탄수 합(g):", random_rows['탄수_합'].values[0])
+print("단백 합(g):", random_rows['단백_합'].values[0])
+print("지방 합(g):", random_rows['지방_합'].values[0])
+print()
+
+# 탄수 합계와 단백 합계 비교 후 메시지 출력
+if random_rows['탄수_합'].values[0] / random_rows['단백_합'].values[0] >= 2:
+    print("단백질을 보충하세요!")
+elif random_rows['단백_합'].values[0] - random_rows['탄수_합'].values[0] >= 50:
+    print("탄수화물을 보충하세요!")

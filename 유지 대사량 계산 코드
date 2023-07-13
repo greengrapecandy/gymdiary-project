@@ -1,0 +1,52 @@
+#유지대사량구하기
+def continue_equation():
+    print("1 : 거의없다(거의 좌식생활 운동안함)")
+    print("2 : 조금있다(활동량이 보통이거나 주 1~3회 운동)")
+    print("3 : 보통(활동량이 다소 많거나 주 3~5회운동)")
+    print("4 : 꽤있다(활동량이 많거나, 주 6~7회운동)")
+    print("5 : 아주많다(활동량이 매우 많거나, 거의 매일 하루 2번운동)")
+    print("\n")
+    con=int(input("알맞은 숫자를 입력하시요 : "))
+    if con==1:
+        cbmr=bmr*1.2
+    elif con==2:
+        cbmr=bmr*1.375
+    elif con==3:
+        cbmr=bmr*1.55
+    elif con==4:
+        cbmr=bmr*1.725
+    elif con==5:
+        cbmr=bmr*1.9
+    return cbmr
+
+#목표칼로리설정
+def goal_calorie():
+    print("원하는 목표에 맞는 숫자를 선택하세요")
+    print("\n")
+    print("1 : 빠른 벌크업/멸치탈출")
+    print("2 : 린매스업")
+    print("3 : 천천히감량/근손실최소화 다이어트")
+    print("4 : 바프찍기/여름이 곧인데.. 수영복입어야할때")
+    print("\n")      
+    con1=int(input("알맞은 숫자를 입력하시요 : "))
+    if con1==1:
+              gcal=cbmr+cbmr*0.2
+    elif con1==2:
+              gcal=cbmr+cbmr*0.1
+    elif con1==3:
+              gcal=cbmr-cbmr*0.1
+    elif con1==4:
+              gcal=cbmr-cbmr*0.2
+
+    return gcal
+#산출된 목표칼로리를 이용해서 매크로비율정하기
+#탄수화물 45% / 단백질 35% / 지방 20%
+#탄수화물 1g=4kcal/단백질 1g=4kcal/지방 1g=9kcal/
+def macro_1():
+
+    탄수화물=gcal*0.45/4
+    단백질=gcal*0.35/4
+    지방=gcal*0.2/9
+    print("탄수화물: " ,int(탄수화물),"g")
+    print("단백질: ",int(단백질),"g")
+    print("지방: ",int(지방),"g")

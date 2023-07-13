@@ -1,0 +1,37 @@
+# 남성/여성 선택 함수
+def select_gender():
+    gender = input("성별을 선택하세요 (남성/여성): ")
+    while gender != "남성" and gender != "여성":
+        gender = input("다시 입력하세요 (남성/여성): ")
+    return gender
+
+# 키 입력 함수
+def input_height():
+    height = float(input("키를 입력하세요 (cm): "))
+    while height <= 0:
+        height = float(input("다시 입력하세요 (양수): "))
+    return height
+
+# 몸무게 입력 함수
+def input_weight():
+    weight = float(input("몸무게를 입력하세요 (kg): "))
+    while weight <= 0:
+        weight = float(input("다시 입력하세요 (양수): "))
+    return weight
+
+# 나이 입력 함수
+def input_age():
+    age = int(input("나이를 입력하세요: "))
+    while age <= 0:
+        age = int(input("다시 입력하세요 (양수): "))
+    return age
+
+# 기초대사량 구하기 (해리스 베네딕트 방정식)
+def harris_benedict_equation(gender, weight, height, age):
+    if gender == '남성':
+        bmr = 66 + (13.7 * weight) + (5 * height) - (6.8 * age)
+    elif gender == '여성':
+        bmr = 655 + (9.6 * weight) + (1.7 * height) - (4.7 * age)
+    else:
+        raise ValueError("Gender must be '남성' or '여성'")
+    return bmr

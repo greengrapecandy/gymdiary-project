@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>gym diary</title>
+		<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            width: 18%;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        select {
+            width: 19%;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<body>
+    <h1>gymdiary</h1>
+    <label for="age">나이 (세)</label>
+    <input type="number" id="age" min="1" required="">
+
+    <label for="gender">성별</label>
+    <select id="gender" required="">
+        <option value="male">남성</option>
+        <option value="female">여성</option>
+    </select>
+
+    <label for="weight">체중 (kg)</label>
+    <input type="number" id="weight" min="1" required="">
+
+    <label for="height">신장 (cm)</label>
+    <input type="number" id="height" min="1" required="">
+
+    <label for="activity">하루활동량</label>
+    <select id="activity" required="">
+        <option value="1.2">매우적음</option>
+        <option value="1.375">적음</option>
+        <option value="1.55">보통</option>
+        <option value="1.725">많음</option>
+        <option value="1.88">아주많다</option>
+    </select>
+
+    <label for="goal">목표</label>
+    <select id="goal" required="">
+        <option value="1.18">빠른벌크</option>
+        <option value="1.1">유지+근육량증가</option>
+        <option value="0.88">천천히감량</option>
+        <option value="0.75">빠른감량</option>
+    </select>
+
+    <button onclick="calculate()">계산하기</button>
+
+    <div id="result">기초대사량: NaN kcal<br>유지대사량: NaN kcal<br>목표대사량: NaN kcal<br>하루동안 먹을 탄수화물: NaN g<br>하루동안 먹을   단백질: NaN g<br>하루동안 먹을     지방: NaN g</div>
+
+    <script>
+        function calculate() {
+            var age = parseInt(document.getElementById("age").value);
+            var gender = document.getElementById("gender").value;
+            var weight = parseInt(document.getElementById("weight").value);
+            var height = parseInt(document.getElementById("height").value);
+            var activity = parseFloat(document.getElementById("activity").value);
+            var goal = parseFloat(document.getElementById("goal").value);
+
+            var bmr;
+            var maintenance;
+            var target;
+
+            if (gender === "male") {
+                bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+            } else {
+                bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+            }
+
+            maintenance = bmr * activity;
+            target = maintenance * goal;
+
+            var carbohydrate = target * 0.1125;
+            var protein = target * 0.0875;
+            var fat = target * 0.023;
+
+            document.getElementById("result").innerHTML = "기초대사량: " + bmr + " kcal<br>"
+                + "유지대사량: " + maintenance + " kcal<br>"
+                + "목표대사량: " + target + " kcal<br>"
+                + "하루동안 먹을 탄수화물: " + carbohydrate + " g<br>"
+                + "하루동안 먹을   단백질: " + protein + " g<br>"
+                + "하루동안 먹을     지방: " + fat + " g";
+        }
+    </script>
+</body>
+</html>
